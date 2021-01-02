@@ -16,9 +16,7 @@ const queryDate = presentDate.slice(4);
 export default async function (req, res) {
     try {
         const { db } = await connect();
-        console.log(db);
         const albums = await db.collection("albums").find({ release_date: { $regex: '-08-23' }}).toArray();
-        // const albums = await db.collection("albums").find({ release_date: '-08-23' }).toArray();
         res.status(200);
         res.json({ albums });
     } catch (e) {
