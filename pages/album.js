@@ -1,4 +1,5 @@
 import styles from '../styles/Album.module.css';
+import RenderAlbumList from './_albumList'
 
 export default function Albums({ albums }) {
     return (
@@ -6,26 +7,12 @@ export default function Albums({ albums }) {
         <h1>Albums Released on this day</h1>
         {/*  forでkeyとvalue: arrayコンポーネントに渡しながらながらぶん回してレンダリング  */}
         <div className={styles.albums}>
-           {/* {
-            years.map((year) => (
-            // <div key={album._id} className="item">
-            //     <a href={album.uri} target="_blank">
-            //         <img src={album.images[0].url} style={{width: "150px"}}></img>
-            //     </a>
-            //     <p>{album.artist}</p>
-            //     <p>{album.name}</p>
-            // </div>
-           <p>{year}</p>
-          ))
-          } */}
-            {Object.keys(albums).map(function(keyName, keyIndex) {
-    		return (
-      			<li key={keyName}>
-					{keyName}
-                    {console.log(albums[keyName])}
-          		</li>
-    		)
-		})}
+            {Object.entries(albums).map(([key, value]) => {
+                return (
+                    <RenderAlbumList year={key} albums={value} />
+                )
+                })
+            }
         </div>
       </div>
     );
