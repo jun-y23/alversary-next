@@ -4,7 +4,7 @@ import RenderAlbumList from './_albumList'
 export default function Albums({ albums }) {
     return (
       <div>
-        <h1>Albums Released on this day</h1>
+        <h1 className={styles.title}>Albums Released on this day</h1>
         {/*  forでkeyとvalue: arrayコンポーネントに渡しながらながらぶん回してレンダリング  */}
         <div className={styles.albums}>
             {Object.entries(albums).map(([key, value]) => {

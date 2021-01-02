@@ -1,4 +1,4 @@
-import styles from '../styles/Album.module.css';
+import styles from '../styles/AlbumList.module.css';
 
 const RenderAlbumList = (props) => {
     return (
