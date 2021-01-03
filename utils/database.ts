@@ -1,6 +1,8 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.DB_URI, {
+const uri: string = process.env.DB_URI as string
+
+const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

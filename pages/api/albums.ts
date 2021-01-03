@@ -4,7 +4,7 @@ import { connect } from "../../utils/database";
 let day = new Date();
 
 // 'yyyy-mm-dd'
-let presentDate = [
+const presentDate = [
     day.getFullYear(),
     ('0' + (day.getMonth() + 1)).slice(-2),
     ('0' + day.getDate()).slice(-2)
@@ -13,7 +13,7 @@ let presentDate = [
 // '-mm-dd'
 const queryDate = presentDate.slice(4);
 
-export default async function (req, res) {
+export default async function (req: NextApiRequest, res:NextApiResponse) {
     try {
         const { db } = await connect();
         const albums = await db.collection("albums").find({ release_date: { $regex: '-08-23' }}).toArray();
