@@ -1,14 +1,27 @@
-.albumList {
-    display: flex;
+/* .albumList {
+    text-align: center;
+} */
+
+.yearListItem {
+    margin-bottom: 15px;
 }
 
 .albumListYear {
-    padding: 10px;
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 8px;
 }
 
 .albumListAlbums {
+    padding-left: 0;
     display: grid;
-    grid-template-rows: 250px;
-    /* @TODO: 一列でカルーセルにする */
-    grid-template-columns: repeat(5, 250px);
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(5, 200px);
+    grid-gap: 40px;
+}
+
+.albumArtist,
+.albumName
+{
+    margin: 0;
 }
