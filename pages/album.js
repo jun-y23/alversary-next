@@ -3,18 +3,19 @@ import RenderAlbumList from './_albumList'
 
 export default function Albums({ albums }) {
     return (
-      <div>
-        <h1 className={styles.title}>Albums Released on this day</h1>
-        {/*  forでkeyとvalue: arrayコンポーネントに渡しながらながらぶん回してレンダリング  */}
-        <div className={styles.albums}>
-            {Object.entries(albums).map(([key, value]) => {
-                return (
-                    <RenderAlbumList year={key} albums={value} />
-                )
-                })
-            }
+      <main className={styles.main}>
+        <h1 className={styles.title}>Alversary</h1>
+        <div className={styles.albumsArea}>
+            <ul className={styles.yearList}>
+                {Object.entries(albums).map(([key, value], index) => {
+                    return (
+                        <RenderAlbumList year={key} albums={value} key={index} />
+                    )
+                    })
+                }
+            </ul>
         </div>
-      </div>
+      </main>
     );
 }
 
