@@ -1,4 +1,4 @@
-import styles from "../styles/Index.module.scss";
+import styles from "../../styles/Index.module.scss";
 import RenderAlbumList from "./_albumList";
 import { ObjectId } from "mongodb";
 

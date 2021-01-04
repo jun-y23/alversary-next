@@ -1,4 +1,4 @@
-import styles from "../styles/AlbumList.module.scss";
+import styles from "../../styles/AlbumList.module.scss";
 import { ObjectId } from "mongodb";
 
 interface Props {
@@ -43,9 +43,9 @@ const RenderAlbumList = (props: Props) => {
 
 const AlbumItem = (props: AlbumItem) => {
     return (
-        <div className="item">
+        <div className={styles.item}>
             <a href={props.uri} target="_blank">
-                <img src={props.images[0].url} style={{width: "200px"}}></img>
+                <img src={props.images[0].url} className={styles.img}></img>
             </a>
             <p className={styles.albumArtist}>{props.name}</p>
             <p className={styles.albumName}>{props.artist}</p>

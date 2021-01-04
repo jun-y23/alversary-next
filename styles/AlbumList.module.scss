@@ -10,18 +10,29 @@
     font-size: 1.6rem;
     margin-top: 0;
     margin-bottom: 8px;
+    color: #fff;
 }
 
 .albumListAlbums {
     padding-left: 0;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(5, 200px);
-    grid-gap: 40px;
+    grid-template-columns: repeat(5, 20%);
+    grid-gap: 10px;
+}
+
+.item {
+    width: 80%;
 }
 
 .albumArtist,
 .albumName
 {
     margin: 0;
+    color: #cccccc;
+}
+
+.img {
+    min-width: 100px;
+    width: 100%;
 }

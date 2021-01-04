@@ -1,22 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connect } from "../../utils/database";
+import { connect } from "../../../utils/database";
 
 let day = new Date();
 
 // 'yyyy-mm-dd'
-const presentDate = [
+const presentDate: string = [
     day.getFullYear(),
     ('0' + (day.getMonth() + 1)).slice(-2),
     ('0' + day.getDate()).slice(-2)
   ].join('-');
 
 // '-mm-dd'
-const queryDate = presentDate.slice(4);
+const queryDate: string = presentDate.slice(4);
 
 export default async function (req: NextApiRequest, res:NextApiResponse) {
     try {
         const { db } = await connect();
-        const albums = await db.collection("albums").find({ release_date: { $regex: '-08-23' }}).toArray();
+        const albums = await db.collection("albums").find({ release_date: { $regex: queryDate }}).toArray();
         res.status(200);
         res.json({ albums });
     } catch (e) {
