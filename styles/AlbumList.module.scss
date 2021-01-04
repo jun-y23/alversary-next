@@ -1,7 +1,3 @@
-/* .albumList {
-    text-align: center;
-} */
-
 .yearListItem {
     margin-bottom: 15px;
 }
@@ -19,15 +15,11 @@
     grid-template-rows: 1fr;
     grid-template-columns: repeat(5, 20%);
     grid-gap: 10px;
-}
-
-.item {
-    width: 80%;
+    overflow-x: none;
 }
 
 .albumArtist,
-.albumName
-{
+.albumName {
     margin: 0;
     color: #cccccc;
 }
@@ -35,4 +27,22 @@
 .img {
     min-width: 100px;
     width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+    .albumListAlbums{
+       display: flex;
+       overflow-x: scroll;
+       -webkit-overflow-scrolling: touch;
+       overflow-scrolling: touch;
+       scroll-snap-type: x mandatory;
+       padding:0 0 1em;
+       scroll-behavior: smooth;
+    }
+    .albumListAlbums .item {
+       height:100%;
+       flex: 0 0 40%;
+       margin: 0px 5px;
+       scroll-snap-align:center;
+    }
 }
