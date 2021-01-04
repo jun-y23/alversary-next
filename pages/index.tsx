@@ -24,14 +24,14 @@ interface Image {
     width: number
 }
 
-export default function Album(props: Props) {
+export default function Home(props: Props) {
 	return (
 		<main className={styles.main}>
 			<h1 className={styles.title}>Alversary</h1>
 			<div className={styles.albumsArea}>
 				<ul className={styles.yearList}>
-					{props.albumArray.map((item) => {
-						return <RenderAlbumList year={item.releasedYear} albums={item.albums} />;
+					{props.albumArray.map((item, index) => {
+						return <RenderAlbumList key={index} year={item.releasedYear} albums={item.albums} />;
 					})}
 				</ul>
 			</div>
@@ -57,7 +57,7 @@ export async function getServerSideProps() {
 	}[] = [];
 	
 	// @TODO: anyやめる
-	albums.map((album: any) => {
+	albums.forEach((album: any) => {
 		let releasedYear: string = album.release_date.substr(0, 4);
 	
 		if (!albumArray.find((val) => val.releasedYear === releasedYear)) {
@@ -70,6 +70,7 @@ export async function getServerSideProps() {
 		const targetObj = albumArray.find((val) => val.releasedYear === releasedYear);
 		targetObj?.albums.push(album)
 	});
+
 	return { 
 		props: {
 			albumArray,

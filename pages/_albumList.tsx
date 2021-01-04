@@ -1,4 +1,4 @@
-import styles from "../styles/AlbumList.module.css";
+import styles from "../styles/AlbumList.module.scss";
 import { ObjectId } from "mongodb";
 
 interface Props {
@@ -28,7 +28,12 @@ const RenderAlbumList = (props: Props) => {
 			<ul className={styles.albumListAlbums}>
 				{props.albums.map((album) => (
 					<AlbumItem key={album._id.toString()}
-					name={album.name} artist={album.artist} release_date={album.release_date} uri={album.uri} images={album.images} _id={album._id}
+						name={album.name}
+						artist={album.artist}
+						release_date={album.release_date}
+						uri={album.uri}
+						images={album.images}
+						_id={album._id}
 					/>
 				))}
 			</ul>
