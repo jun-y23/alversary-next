@@ -25,18 +25,25 @@ interface Image {
 }
 
 export default function Home(props: Props) {
+	if (props.albumArray.length) {
+		return (
+			<main className={styles.main}>
+				<h1 className={styles.title}>Alversary</h1>
+				<div className={styles.albumsArea}>
+					<ul className={styles.yearList}>
+						{props.albumArray.map((item, index) => {
+							return <RenderAlbumList key={index} year={item.releasedYear} albums={item.albums} />;
+						})}
+					</ul>
+				</div>
+			</main>
+		);
+	}
 	return (
-		<main className={styles.main}>
-			<h1 className={styles.title}>Alversary</h1>
-			<div className={styles.albumsArea}>
-				<ul className={styles.yearList}>
-					{props.albumArray.map((item, index) => {
-						return <RenderAlbumList key={index} year={item.releasedYear} albums={item.albums} />;
-					})}
-				</ul>
-			</div>
+		<main>
+			no albums released...
 		</main>
-	);
+	)
 };
 
 /**
@@ -45,7 +52,8 @@ export default function Home(props: Props) {
  * @return array
  */
 export async function getServerSideProps() {
-	const res = await fetch("https://alversary.vercel.app/api/albums");
+	const endpoint: string = process.env.API_ENDPOINT as string
+	const res = await fetch(endpoint);
 	const json = await res.json();
 	const albums: {}[] = json.albums;
 
@@ -55,21 +63,23 @@ export async function getServerSideProps() {
 		// @TODO: anyやめる
 		albums:any []
 	}[] = [];
-	
-	// @TODO: anyやめる
-	albums.forEach((album: any) => {
-		let releasedYear: string = album.release_date.substr(0, 4);
-	
-		if (!albumArray.find((val) => val.releasedYear === releasedYear)) {
-			albumArray.push({
-				releasedYear: releasedYear,
-				albums: []
-			});
-		} 
 
-		const targetObj = albumArray.find((val) => val.releasedYear === releasedYear);
-		targetObj?.albums.push(album)
-	});
+	if (albums.length) {
+		// @TODO: anyやめる
+		albums.forEach((album: any) => {
+			let releasedYear: string = album.release_date.substr(0, 4);
+
+			if (!albumArray.find((val) => val.releasedYear === releasedYear)) {
+				albumArray.push({
+					releasedYear: releasedYear,
+					albums: []
+				});
+			} 
+
+			const targetObj = albumArray.find((val) => val.releasedYear === releasedYear);
+			targetObj?.albums.push(album)
+		});
+	}
 
 	return { 
 		props: {
