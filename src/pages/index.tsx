@@ -1,5 +1,5 @@
 import styles from "../../styles/Index.module.scss";
-import RenderAlbumList from "./_albumList";
+import RenderAlbumList from "../components/_albumList";
 import { ObjectId } from "mongodb";
 
 interface Props {
