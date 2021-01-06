@@ -45,7 +45,7 @@ export default function Home(props: Props) {
  * @return array
  */
 export async function getServerSideProps() {
-	const res = await fetch("http://localhost:3000/api/albums");
+	const res = await fetch("https://alversary.vercel.app/api/albums");
 	const json = await res.json();
 	const albums: {}[] = json.albums;
 
