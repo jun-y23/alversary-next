@@ -12,7 +12,7 @@ interface AlbumItem {
 	artist: string,
 	release_date: string,
 	uri: string,
-	images: [Image],
+	images: [Image, Image, Image],
 }
 
 interface Image {
@@ -45,7 +45,7 @@ const AlbumItem = (props: AlbumItem) => {
     return (
         <div className={styles.item}>
             <a href={props.uri} target="_blank">
-                <img src={props.images[0].url} className={styles.img}></img>
+                <img src={props.images[1].url} className={styles.img}></img>
             </a>
             <p className={styles.albumName}>{props.name}</p>
             <p className={styles.albumArtist}>{props.artist}</p>
