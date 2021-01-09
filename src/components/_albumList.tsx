@@ -47,8 +47,8 @@ const AlbumItem = (props: AlbumItem) => {
             <a href={props.uri} target="_blank">
                 <img src={props.images[0].url} className={styles.img}></img>
             </a>
-            <p className={styles.albumArtist}>{props.name}</p>
-            <p className={styles.albumName}>{props.artist}</p>
+            <p className={styles.albumName}>{props.name}</p>
+            <p className={styles.albumArtist}>{props.artist}</p>
         </div>
     )
 }

@@ -1,3 +1,5 @@
+@use './_variables';
+
 .yearListItem {
     margin-bottom: 15px;
 }
@@ -6,7 +8,7 @@
     font-size: 1.6rem;
     margin-top: 0;
     margin-bottom: 8px;
-    color: #fff;
+    color: variables.$color-white;
 }
 
 .albumListAlbums {
@@ -17,10 +19,24 @@
     grid-gap: 19px;
 }
 
-.albumArtist,
+.albumArtist {
+    margin: {
+        top: 2px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    };
+    color: variables.$color-white;
+}
+
 .albumName {
-    margin: 0;
-    color: #cccccc;
+    margin: {
+        top: 2px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    };
+    color: variables.$color-gray;
 }
 
 .img {
