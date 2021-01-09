@@ -56,8 +56,8 @@ export default function Home(props: Props) {
  * @export
  * @return array
  */
-export async function getServerSideProps() {
-    const endpoint: string = process.env.API_ENDPOINT as string;
+export async function getStaticProps() {
+    // const endpoint: string = process.env.API_ENDPOINT as string;
     const res = await fetch(
         "https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums"
     );
