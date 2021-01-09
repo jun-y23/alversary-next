@@ -58,10 +58,11 @@ export default function Home(props: Props) {
  * @return array
  */
 export async function getStaticProps() {
-    // const endpoint: string = process.env.API_ENDPOINT as string;
-    const res = await fetch(
-        "https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums"
-    );
+    const endpoint: string = process.env.API_ENDPOINT as string;
+    // const res = await fetch(
+    //     "https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums"
+    // );
+    const res = await fetch(endpoint);
     const albums: {}[] = await res.json();
 
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
