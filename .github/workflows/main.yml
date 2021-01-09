@@ -1,0 +1,18 @@
+# This is a basic workflow to help you get started with Actions
+
+name: 24 hurs cron
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  cron:
+    steps:
+      - name: Build new date
+        run: |
+          curl -X POST \
+          --url 'https://api.vercel.com/v1/integrations/deploy/prj_wutxcujY2z1rOZXFesXJcJB947hn/CJN3J9NKfr'
