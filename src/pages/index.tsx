@@ -1,3 +1,4 @@
+import "./_app";
 import styles from "../../styles/Index.module.scss";
 import RenderAlbumList from "../components/_albumList";
 import { ObjectId } from "mongodb";
@@ -28,19 +29,21 @@ export default function Home(props: Props) {
     if (props.albumArray.length) {
         return (
             <main className={styles.main}>
-                <h1 className={styles.title}>Alversary</h1>
-                <div className={styles.albumsArea}>
-                    <ul className={styles.yearList}>
-                        {props.albumArray.map((item, index) => {
-                            return (
-                                <RenderAlbumList
-                                    key={index}
-                                    year={item.releasedYear}
-                                    albums={item.albums}
-                                />
-                            );
-                        })}
-                    </ul>
+                <div className={styles.mainInner}>
+                    <h1 className={styles.title}>Alversary</h1>
+                    <div className={styles.albumsArea}>
+                        <ul className={styles.yearList}>
+                            {props.albumArray.map((item, index) => {
+                                return (
+                                    <RenderAlbumList
+                                        key={index}
+                                        year={item.releasedYear}
+                                        albums={item.albums}
+                                    />
+                                );
+                            })}
+                        </ul>
+                    </div>
                 </div>
             </main>
         );
