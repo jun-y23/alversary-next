@@ -54,9 +54,11 @@ export default function Home(props: Props) {
  * @return array
  */
 export async function getServerSideProps() {
-	const endpoint: string = process.env.API_ENDPOINT as string;
-    const res = await fetch("https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums");
-	const albums: {}[] = await res.json();
+    const endpoint: string = process.env.API_ENDPOINT as string;
+    const res = await fetch(
+        "https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums"
+    );
+    const albums: {}[] = await res.json();
 
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
     let albumArray: {
@@ -83,6 +85,21 @@ export async function getServerSideProps() {
             targetObj?.albums.push(album);
         });
     }
+
+    albumArray.sort(
+        (
+            a: { releasedYear: string; albums: any[] },
+            b: { releasedYear: string; albums: any[] }
+        ) => {
+            if (a.releasedYear > b.releasedYear) {
+                return -1;
+            }
+            if (a.releasedYear < b.releasedYear) {
+                return 1;
+            }
+            return 0;
+        }
+    );
 
     return {
         props: {
