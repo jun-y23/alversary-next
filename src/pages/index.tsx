@@ -16,7 +16,7 @@ interface AlbumItem {
     artist: string;
     release_date: string;
     uri: string;
-    images: [Image];
+    images: [Image, Image, Image];
 }
 
 interface Image {
