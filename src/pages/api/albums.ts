@@ -3,14 +3,14 @@ import { connect } from "../../../utils/database";
 
 let day = new Date();
 
-// 'yyyy-mm-dd'
+// presentDate = 'yyyy-mm-dd'
 const presentDate: string = [
     day.getFullYear(),
     ('0' + (day.getMonth() + 1)).slice(-2),
     ('0' + day.getDate()).slice(-2)
   ].join('-');
 
-// '-mm-dd'
+// queryDate = '-mm-dd'
 const queryDate: string = presentDate.slice(4);
 
 export default async function (req: NextApiRequest, res:NextApiResponse) {
