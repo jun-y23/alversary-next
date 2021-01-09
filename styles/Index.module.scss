@@ -3,11 +3,23 @@
 .main {
   width: 90%;
   margin: 0 auto;
+  padding-top: 10px;
 }
 
 .title {
   text-align: center;
   color: variables.$color-white;
+  margin: 0;
+}
+
+.subTitle {
+  font-size: 1.4rem;
+  text-align: center;
+  color: variables.$color-white;
+  margin: {
+    top: 4px;
+    bottom: 0;
+  }
 }
 
 .yearList {
