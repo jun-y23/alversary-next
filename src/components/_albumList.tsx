@@ -43,13 +43,13 @@ const RenderAlbumList = (props: Props) => {
 
 const AlbumItem = (props: AlbumItem) => {
     return (
-        <div className={styles.item}>
+        <li className={styles.item}>
             <a href={props.uri} target="_blank">
-                <img src={props.images[1].url} className={styles.img}></img>
+                <img src={props.images[1].url} className={styles.img} alt={props.name}></img>
             </a>
             <p className={styles.albumName}>{props.name}</p>
             <p className={styles.albumArtist}>{props.artist}</p>
-        </div>
+        </li>
     )
 }
 

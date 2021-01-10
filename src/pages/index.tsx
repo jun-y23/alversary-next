@@ -2,6 +2,7 @@ import "./_app";
 import styles from "../../styles/Index.module.scss";
 import RenderAlbumList from "../components/_albumList";
 import { ObjectId } from "mongodb";
+import Head from 'next/head'
 
 interface Props {
     albumArray: {
@@ -28,6 +29,11 @@ interface Image {
 export default function Home(props: Props) {
     if (props.albumArray.length) {
         return (
+            <div>
+            <Head>
+                <title>Alversary</title>
+                <meta name="description" content="These albums were released on this date!!"></meta>
+            </Head>
             <main className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
@@ -49,6 +55,7 @@ export default function Home(props: Props) {
                     </div>
                 </div>
             </main>
+            </div>
         );
     }
     return <main>no albums released...</main>;
