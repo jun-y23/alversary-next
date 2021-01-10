@@ -61,9 +61,17 @@ export default function Home(props: Props) {
  */
 export async function getStaticProps() {
     // const endpoint: string = process.env.API_ENDPOINT as string;
+
+    const apiKey: string = process.env.API_KEY as string;
     const res = await fetch(
         "https://p3a8y3yla0.execute-api.ap-northeast-1.amazonaws.com/Prod/albums"
-    );
+    ,{
+        headers: {
+            Accept: "application/json",
+            "X-API-Key": apiKey,
+            "Content-Type": "application/json;charset=utf-8"
+      }
+    });
     const albums: {}[] = await res.json();
 
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
