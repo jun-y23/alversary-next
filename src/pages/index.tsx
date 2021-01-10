@@ -31,7 +31,9 @@ export default function Home(props: Props) {
             <main className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
-                    <p className={styles.subTitle}>These albums were released on this date!!</p>
+                    <p className={styles.subTitle}>
+                        These albums were released on this date!!
+                    </p>
                     <div className={styles.albumsArea}>
                         <ul className={styles.yearList}>
                             {props.albumArray.map((item, index) => {
