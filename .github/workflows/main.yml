@@ -3,7 +3,7 @@ name: Dayly Deploy
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '20 0 * * *'
+    - cron: '30 0 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
