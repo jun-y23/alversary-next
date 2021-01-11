@@ -1,0 +1,16 @@
+name: Dayly Deploy
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '24 1 * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          curl -X POST --url ${{ secrets.WEBHOOK_URL }}
