@@ -11,6 +11,6 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Build application with latest data
+      - name: Build
         run: |
           curl -X POST --url ${{ secrets.WEBHOOK_URL }}
