@@ -17,6 +17,7 @@ const CustomHead = () => {
         <meta property="og:site_name" content="Alversary" />
         
         <meta property="og:image" content="https://alversary.s3-ap-northeast-1.amazonaws.com/ogp-alversary.png" />
+        <meta name="twitter:card" content="summary" />
     </Head>
   );
 };
