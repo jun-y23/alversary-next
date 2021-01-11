@@ -16,4 +16,4 @@ jobs:
         env: 
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          curl -X POST "%WEBHOOK_URL%"
+          curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_wutxcujY2z1rOZXFesXJcJB947hn/CJN3J9NKfr"
