@@ -16,5 +16,4 @@ jobs:
         env: 
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          echo WEBHOOK_URL is ${WEBHOOK_URL}
-          # curl -X POST --url ${WEBHOOK_URL} ${}
+          curl -X POST --url ${WEBHOOK_URL}
