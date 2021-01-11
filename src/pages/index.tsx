@@ -1,8 +1,8 @@
 import "./_app";
 import styles from "../../styles/Index.module.scss";
 import RenderAlbumList from "../components/_albumList";
+import Head from '../components/head';
 import { ObjectId } from "mongodb";
-import Head from 'next/head'
 
 interface Props {
     albumArray: {
@@ -30,10 +30,7 @@ export default function Home(props: Props) {
     if (props.albumArray.length) {
         return (
             <div>
-            <Head>
-                <title>Alversary</title>
-                <meta name="description" content="These albums were released on this date!!"></meta>
-            </Head>
+            <Head/>
             <main className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
