@@ -10,9 +10,9 @@ const CustomHead = () => {
         <meta property="og:url" content="https://alversary.vercel.app/" />
         <meta property="og:type" content="website" />
         
-        <meta property="og:title" content="Alversary" />
+        <meta property="og:title" content="These albums were released on this date!!" />
         
-        <meta property="og:description" content="These albums were released on this date!!" />
+        <meta property="og:description" content="This is the site to introduce the albums released on this date." />
         
         <meta property="og:site_name" content="Alversary" />
         
