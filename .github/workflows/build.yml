@@ -1,14 +1,13 @@
-name: Dayly Deploy
+name: Daily Cron
 
-# Controls when the action will run. 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '24 1 * * *'
+    # Daily, 1:15am UTC
+    - cron: '50 1 * * *'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  daily-cron:
     runs-on: ubuntu-latest
     steps:
       - name: Build
