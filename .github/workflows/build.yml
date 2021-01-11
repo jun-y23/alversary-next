@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # Daily, 1:15am UTC
-    - cron: '50 1 * * *'
+    - cron: '0 2 * * *'
 
 jobs:
   daily-cron:
