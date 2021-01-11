@@ -15,7 +15,6 @@ jobs:
       - name: Build
         env: 
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo WEBHOOK_URL is ${WEBHOOK_URL} ${GITHUB_TOKEN}
+          echo WEBHOOK_URL is ${WEBHOOK_URL}
           # curl -X POST --url ${WEBHOOK_URL} ${}
