@@ -1,6 +1,6 @@
 name: Daily Cron
 
-# Controls when the action will run. rebuild
+# Controls when the action will run. 
 on:
   schedule:
   - cron: '0 0,23 * * *'
