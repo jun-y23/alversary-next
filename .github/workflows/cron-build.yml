@@ -1,4 +1,4 @@
-name: Cron
+name: Cron everyday
 
 # Controls when the action will run. 
 on:
