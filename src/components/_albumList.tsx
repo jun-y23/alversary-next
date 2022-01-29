@@ -21,7 +21,19 @@ interface Image {
     width: number
 }
 
-const RenderAlbumList = (props: Props) => {
+const AlbumItem = (props: AlbumItem) => {
+    return (
+        <li className={styles.item}>
+            <a href={props.uri} target="_blank">
+                <img src={props.images[1].url} className={styles.img} alt={props.name}></img>
+            </a>
+            <p className={styles.albumName}>{props.name}</p>
+            <p className={styles.albumArtist}>{props.artist}</p>
+        </li>
+    )
+};
+
+export const RenderAlbumList = (props: Props) => {
 	return (
 		<li className={styles.yearListItem}>
 			<p className={styles.albumListYear}>{props.year}</p>
@@ -40,17 +52,3 @@ const RenderAlbumList = (props: Props) => {
 		</li>
 	);
 };
-
-const AlbumItem = (props: AlbumItem) => {
-    return (
-        <li className={styles.item}>
-            <a href={props.uri} target="_blank">
-                <img src={props.images[1].url} className={styles.img} alt={props.name}></img>
-            </a>
-            <p className={styles.albumName}>{props.name}</p>
-            <p className={styles.albumArtist}>{props.artist}</p>
-        </li>
-    )
-}
-
-export default RenderAlbumList;
