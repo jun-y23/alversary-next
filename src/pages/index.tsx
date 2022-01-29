@@ -1,7 +1,7 @@
 import "./_app";
 import styles from "../../styles/Index.module.scss";
-import RenderAlbumList from "../components/_albumList";
-import Head from '../components/head';
+import { RenderAlbumList } from "../components/_albumList";
+import { CustomHead } from '../components/CustomHead';
 import { ObjectId } from "mongodb";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
         releasedYear: string;
         albums: [AlbumItem];
     }[];
-}
+};
 
 interface AlbumItem {
     _id: ObjectId;
@@ -18,19 +18,19 @@ interface AlbumItem {
     release_date: string;
     uri: string;
     images: [Image, Image, Image];
-}
+};
 
 interface Image {
     height: number;
     url: string;
     width: number;
-}
+};
 
 export default function Home(props: Props) {
     if (props.albumArray.length) {
         return (
             <div>
-            <Head/>
+            <CustomHead/>
             <main className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
@@ -56,7 +56,7 @@ export default function Home(props: Props) {
         );
     }
     return <main>no albums released...</main>;
-}
+};
 
 /**
  *
@@ -72,7 +72,7 @@ export async function getStaticProps() {
             Accept: "application/json",
             "X-API-Key": apiKey,
             "Content-Type": "application/json;charset=utf-8"
-      }
+        }
     });
     const albums: {}[] = await res.json();
 
@@ -93,14 +93,14 @@ export async function getStaticProps() {
                     releasedYear: releasedYear,
                     albums: [],
                 });
-            }
+            };
 
             const targetObj = albumArray.find(
                 (val) => val.releasedYear === releasedYear
             );
             targetObj?.albums.push(album);
         });
-    }
+    };
 
     albumArray.sort(
         (
@@ -122,4 +122,4 @@ export async function getStaticProps() {
             albumArray,
         },
     };
-}
+};

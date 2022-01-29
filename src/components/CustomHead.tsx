@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 
-const CustomHead = () => {
+export const CustomHead = () => {
   return (
     <Head>
         <title>Alversary</title>
@@ -21,7 +21,3 @@ const CustomHead = () => {
     </Head>
   );
 };
-
-export default CustomHead;
-
-//  ww
