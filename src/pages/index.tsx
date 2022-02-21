@@ -79,8 +79,7 @@ export async function getStaticProps() {
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
     let albumArray: {
         releasedYear: string;
-        // @TODO: anyやめる
-        albums: any[];
+        albums: AlbumItem[];
     }[] = [];
 
     if (albums.length) {

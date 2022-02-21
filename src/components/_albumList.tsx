@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 interface Props {
 	year: string,
 	albums: [AlbumItem]
-}
+};
 
 interface AlbumItem {
 	_id: ObjectId,
@@ -13,13 +13,12 @@ interface AlbumItem {
 	release_date: string,
 	uri: string,
 	images: [Image, Image, Image],
-}
-
+};
 interface Image {
     height: number,
     url: string,
     width: number
-}
+};
 
 const AlbumItem = (props: AlbumItem) => {
     return (
