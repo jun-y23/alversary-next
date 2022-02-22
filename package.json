@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@types/mongodb": "^3.6.3",
@@ -20,11 +21,14 @@
     "vercel": "^21.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
     "eslint": "^7.17.0",
     "eslint-plugin-react": "^7.22.0",
-    "mongodb": "^3.6.3"
+    "jest": "^27.5.1",
+    "mongodb": "^3.6.3",
+    "ts-jest": "^27.1.3"
   }
 }
