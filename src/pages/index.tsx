@@ -1,15 +1,19 @@
 import "./_app";
-import styles from "../../styles/Index.module.scss";
-import { RenderAlbumList } from "../components/_albumList";
+
 import { CustomHead } from '../components/CustomHead';
 import { ObjectId } from "mongodb";
+import { RenderAlbumList } from "../components/_albumList";
+
+import styles from "../../styles/Index.module.scss";
 
 interface Props {
-    albumArray: {
-        releasedYear: string;
-        albums: [AlbumItem];
-    }[];
+    albumArray: AlbumArray[]
 };
+
+interface AlbumArray {
+    releasedYear: string;
+    albums: [AlbumItem];
+}[]
 
 interface AlbumItem {
     _id: ObjectId;
@@ -22,16 +26,20 @@ interface AlbumItem {
 
 interface Image {
     height: number;
-    url: string;
     width: number;
+    url: string;
 };
 
 export default function Home(props: Props) {
-    if (props.albumArray.length) {
-        return (
-            <div>
-            <CustomHead/>
-            <main className={styles.main}>
+    return (
+    <div id="home">
+        <CustomHead/>
+        <main>
+        {props.albumArray.length === 0 ? (
+            <p>There are no album released today...</p>
+        ) :
+        <div>
+            <div className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
                     <p className={styles.subTitle}>
@@ -51,11 +59,12 @@ export default function Home(props: Props) {
                         </ul>
                     </div>
                 </div>
-            </main>
             </div>
-        );
-    }
-    return <main>no albums released...</main>;
+        </div>
+        };
+        </main>
+    </div>
+    );
 };
 
 /**
@@ -69,9 +78,9 @@ export async function getStaticProps() {
     
     const res = await fetch(endpoint, {
         headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
+            "Content-Type": "application/json;charset=utf-8",
             "X-API-Key": apiKey,
-            "Content-Type": "application/json;charset=utf-8"
         }
     });
     const albums: {}[] = await res.json();
