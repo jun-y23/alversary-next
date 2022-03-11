@@ -1,41 +1,21 @@
 import "./_app";
 
 import { CustomHead } from '../components/CustomHead';
-import { ObjectId } from "mongodb";
-import { RenderAlbumList } from "../components/_albumList";
+import { AlbumList, AlbumsClassfiedByYear, AlbumItem, Image} from "../components/_albumList";
 
 import styles from "../../styles/Index.module.scss";
 
+// 全アルバムの入った配列
 interface Props {
-    albumArray: AlbumArray[]
-};
-
-interface AlbumArray {
-    releasedYear: string;
-    albums: [AlbumItem];
-}[]
-
-interface AlbumItem {
-    _id: ObjectId;
-    name: string;
-    artist: string;
-    release_date: string;
-    uri: string;
-    images: [Image, Image, Image];
-};
-
-interface Image {
-    height: number;
-    width: number;
-    url: string;
-};
+    albumList: AlbumsClassfiedByYear[]
+}
 
 export default function Home(props: Props) {
     return (
     <div id="home">
         <CustomHead/>
         <main>
-        {props.albumArray.length === 0 ? (
+        {props.albumList.length === 0 ? (
             <p>There are no album released today...</p>
         ) :
         <div>
@@ -47,12 +27,12 @@ export default function Home(props: Props) {
                     </p>
                     <div className={styles.albumsArea}>
                         <ul className={styles.yearList}>
-                            {props.albumArray.map((item, index) => {
+                            {props.albumList.map((item, index) => {
                                 return (
-                                    <RenderAlbumList
+                                    <AlbumList
                                         key={index}
-                                        year={item.releasedYear}
-                                        albums={item.albums}
+                                        releasedYear={item.releasedYear}
+                                        albumList={item.albumList}
                                     />
                                 );
                             })}
@@ -86,48 +66,47 @@ export async function getStaticProps() {
     const albums: {}[] = await res.json();
 
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
-    let albumArray: {
-        releasedYear: string;
-        albums: AlbumItem[];
-    }[] = [];
+    let albumsClassifiedByYear: AlbumsClassfiedByYear[] = [];
 
     if (albums.length) {
         // @TODO: anyやめる
         albums.forEach((album: any) => {
             let releasedYear: string = album.release_date.substr(0, 4);
 
-            if (!albumArray.find((val) => val.releasedYear === releasedYear)) {
-                albumArray.push({
+            if (!albumsClassifiedByYear.find((val) => val.releasedYear === releasedYear)) {
+                albumsClassifiedByYear.push({
                     releasedYear: releasedYear,
-                    albums: [],
+                    albumList: [],
                 });
             };
 
-            const targetObj = albumArray.find(
+            const targetObj = albumsClassifiedByYear.find(
                 (val) => val.releasedYear === releasedYear
             );
-            targetObj?.albums.push(album);
+            targetObj?.albumList.push(album);
         });
     };
-
-    albumArray.sort(
-        (
-            a: { releasedYear: string; albums: any[] },
-            b: { releasedYear: string; albums: any[] }
-        ) => {
-            if (a.releasedYear > b.releasedYear) {
-                return -1;
-            }
-            if (a.releasedYear < b.releasedYear) {
-                return 1;
-            }
-            return 0;
-        }
-    );
+    
+    // リリース年順にsort
+    sortInDescendingOrder(albumsClassifiedByYear);
 
     return {
         props: {
-            albumArray,
+            albumsClassifiedByYear,
         },
     };
+};
+
+const sortInDescendingOrder = (albums: AlbumsClassfiedByYear[]): void => {
+    albums.sort((
+        a, b: AlbumsClassfiedByYear,
+    ) => {
+        if (a.releasedYear > b.releasedYear) {
+            return -1;
+        }
+        if (a.releasedYear < b.releasedYear) {
+            return 1;
+        }
+        return 0;
+    })
 };

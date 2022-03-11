@@ -1,12 +1,12 @@
-import styles from "../../styles/AlbumList.module.scss";
 import { ObjectId } from "mongodb";
+import styles from "../../styles/AlbumList.module.scss";
 
-interface Props {
-	year: string,
-	albums: [AlbumItem]
-};
+export interface AlbumsClassfiedByYear {
+    releasedYear: string;
+    albumList: AlbumItem[];
+}
 
-interface AlbumItem {
+export interface AlbumItem {
 	_id: ObjectId,
 	name: string,
 	artist: string,
@@ -14,30 +14,30 @@ interface AlbumItem {
 	uri: string,
 	images: [Image, Image, Image],
 };
-interface Image {
+export interface Image {
     height: number,
     url: string,
     width: number
 };
 
-const AlbumItem = (props: AlbumItem) => {
+const AlbumItem = (album: AlbumItem) => {
     return (
         <li className={styles.item}>
-            <a href={props.uri} target="_blank">
-                <img src={props.images[1].url} className={styles.img} alt={props.name}></img>
+            <a href={album.uri} target="_blank">
+                <img src={album.images[1].url} className={styles.img} alt={album.name}></img>
             </a>
-            <p className={styles.albumName}>{props.name}</p>
-            <p className={styles.albumArtist}>{props.artist}</p>
+            <p className={styles.albumName}>{album.name}</p>
+            <p className={styles.albumArtist}>{album.artist}</p>
         </li>
     )
 };
 
-export const RenderAlbumList = (props: Props) => {
+export const AlbumList = (props: AlbumsClassfiedByYear) => {
 	return (
 		<li className={styles.yearListItem}>
-			<p className={styles.albumListYear}>{props.year}</p>
+			<p className={styles.albumListYear}>{props.releasedYear}</p>
 			<ul className={styles.albumListAlbums}>
-				{props.albums.map((album) => (
+				{props.albumList.map((album) => (
 					<AlbumItem key={album._id.toString()}
 						name={album.name}
 						artist={album.artist}
