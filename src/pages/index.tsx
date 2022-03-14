@@ -1,13 +1,20 @@
 import "./_app";
-
 import { CustomHead } from '../components/CustomHead';
-import { AlbumList, AlbumsClassfiedByYear, AlbumItem, Image} from "../components/_albumList";
+import { ItemList, ItemListProps } from "../components/ItemList";
 
 import styles from "../../styles/Index.module.scss";
 
-// 全アルバムの入った配列
+// 今は年代ごとのやつしか対応してないからもう一つ抽象化した方がいい設計。多次元配列にした方がいいかんも。[AlbumsClassifiedByYear, AlbumsClassifiedByPopularity...]
 interface Props {
-    albumList: AlbumsClassfiedByYear[]
+    itemList: ClassifiedItem[]
+}
+
+interface ClassifiedItem {
+    title: string;
+    description: string;
+    classification: string; // 'year', 'region', 'popularity', ...
+    type: string; // album', 'single', 'compilation', ...
+    itemList: ItemListProps[];
 }
 
 export default function Home(props: Props) {
@@ -15,28 +22,36 @@ export default function Home(props: Props) {
     <div id="home">
         <CustomHead/>
         <main>
-        {props.albumList.length === 0 ? (
-            <p>There are no album released today...</p>
+        {props.itemList.length === 0 ? (
+            <p>There are no contents...</p>
         ) :
         <div>
             <div className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
-                    <p className={styles.subTitle}>
-                        These albums were released on this date!!
-                    </p>
-                    <div className={styles.albumsArea}>
-                        <ul className={styles.yearList}>
-                            {props.albumList.map((item, index) => {
-                                return (
-                                    <AlbumList
-                                        key={index}
-                                        releasedYear={item.releasedYear}
-                                        albumList={item.albumList}
-                                    />
-                                );
-                            })}
-                        </ul>
+                    <div>
+                    {props.itemList.map((item, index) => {
+                        return (
+                        <div>
+                            <p className={styles.subTitle}>
+                                {item.description}
+                            </p>
+                            <div className={styles.albumsArea}>
+                                <ul className={styles.yearList}>
+                                    {item.itemList.map((item, index) => {
+                                        return (
+                                            <ItemList
+                                                key={index}
+                                                heading={item.heading}
+                                                itemList={item.itemList}
+                                            />
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        )
+                    })}
                     </div>
                 </div>
             </div>
@@ -66,45 +81,54 @@ export async function getStaticProps() {
     const albums: {}[] = await res.json();
 
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
-    let albumsClassifiedByYear: AlbumsClassfiedByYear[] = [];
+    // let albumsClassifiedByYear: ItemListProps[] = [];
+    let albumsClassifiedByYear: ClassifiedItem = {
+        title : 'year',
+        description: 'no albums released on this date!!',
+        classification: 'year',
+        type: 'album',
+        itemList: [],
+    }
 
     if (albums.length) {
+        albumsClassifiedByYear.description = 'These albums were released on this date!!'
         // @TODO: anyやめる
         albums.forEach((album: any) => {
             let releasedYear: string = album.release_date.substr(0, 4);
 
-            if (!albumsClassifiedByYear.find((val) => val.releasedYear === releasedYear)) {
-                albumsClassifiedByYear.push({
-                    releasedYear: releasedYear,
-                    albumList: [],
+            if (!albumsClassifiedByYear.itemList.find((val) => val.heading === releasedYear)) {
+                albumsClassifiedByYear.itemList.push({
+                    heading: releasedYear,
+                    itemList: [],
                 });
             };
 
-            const targetObj = albumsClassifiedByYear.find(
-                (val) => val.releasedYear === releasedYear
+            const targetObj = albumsClassifiedByYear.itemList.find(
+                (val) => val.heading === releasedYear
             );
-            targetObj?.albumList.push(album);
+            targetObj?.itemList.push(album);
         });
     };
     
-    // リリース年順にsort
-    sortInDescendingOrder(albumsClassifiedByYear);
+    sortInDescendingOrder(albumsClassifiedByYear.itemList);
+
+    let result = [albumsClassifiedByYear]
 
     return {
         props: {
-            albumsClassifiedByYear,
+            result,
         },
     };
 };
 
-const sortInDescendingOrder = (albums: AlbumsClassfiedByYear[]): void => {
+const sortInDescendingOrder = (albums: ItemListProps[]): void => {
     albums.sort((
-        a, b: AlbumsClassfiedByYear,
+        a, b: ItemListProps,
     ) => {
-        if (a.releasedYear > b.releasedYear) {
+        if (a.heading > b.heading) {
             return -1;
         }
-        if (a.releasedYear < b.releasedYear) {
+        if (a.heading < b.heading) {
             return 1;
         }
         return 0;
