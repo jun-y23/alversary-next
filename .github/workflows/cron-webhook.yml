@@ -1,0 +1,13 @@
+name: cron-webhook
+on:
+  schedule:
+  - cron: '0 0,23 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook to deploy when the date changes
+        env: 
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          curl -X POST --url ${WEBHOOK_URL}
