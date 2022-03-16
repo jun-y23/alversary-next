@@ -19,11 +19,11 @@ export interface Image {
 export const Item = (album: ItemProps) => {
     return (
         <li className={styles.item}>
-            <a href={album.uri} target="_blank">
+            <a href={album.uri} target="_blank" rel="noreferrer">
                 <img src={album.images[1].url} className={styles.img} alt={album.name}></img>
             </a>
             <p className={styles.albumName}>{album.name}</p>
             <p className={styles.albumArtist}>{album.artist}</p>
         </li>
-    )
+    );
 };

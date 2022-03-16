@@ -51,7 +51,7 @@ export default function Home(props: Props) {
                                 </ul>
                             </div>
                         </div>
-                        )
+                        );
                     })}
                 </div>
             </div>
@@ -94,10 +94,10 @@ export async function getStaticProps() {
         classification: 'year',
         type: 'album',
         itemList: [],
-    }
+    };
 
     if (albums.length > 0) {
-        albumsClassifiedByYear.description = 'These albums were released on this date!!'
+        albumsClassifiedByYear.description = 'These albums were released on this date!!';
         // @TODO: anyやめる
         albums.forEach((album: any) => {
             let releasedYear: string = album.release_date.substr(0, 4);
@@ -120,8 +120,8 @@ export async function getStaticProps() {
 
     let staticProps: Props = {
         itemList: []
-    }
-    staticProps.itemList.push(albumsClassifiedByYear)
+    };
+    staticProps.itemList.push(albumsClassifiedByYear);
 
     return {
         props: staticProps,
@@ -139,5 +139,5 @@ const sortInDescendingOrder = (albums: ItemListProps[]): void => {
             return 1;
         }
         return 0;
-    })
+    });
 };
