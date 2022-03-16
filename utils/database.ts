@@ -1,17 +1,17 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
-const uri: string = process.env.DB_URI as string
+const uri: string = process.env.DB_URI as string;
 
 const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 async function connect() {
-    if (!client.isConnected()) await client.connect();
-    const db = client.db('alversary');
+  if (!client.isConnected()) await client.connect();
+  const db = client.db('alversary');
 
-    return {db, client}
+  return { db, client };
 }
 
 export { connect };
