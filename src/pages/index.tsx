@@ -1,61 +1,65 @@
 import "./_app";
-import styles from "../../styles/Index.module.scss";
-import { RenderAlbumList } from "../components/_albumList";
 import { CustomHead } from '../components/CustomHead';
-import { ObjectId } from "mongodb";
+import { ItemList, ItemListProps } from "../components/ItemList";
 
-interface Props {
-    albumArray: {
-        releasedYear: string;
-        albums: [AlbumItem];
-    }[];
-};
+import styles from "../../styles/Index.module.scss";
 
-interface AlbumItem {
-    _id: ObjectId;
-    name: string;
-    artist: string;
-    release_date: string;
-    uri: string;
-    images: [Image, Image, Image];
-};
+// 今は年代ごとのやつしか対応してないからもう一つ抽象化した方がいい設計。多次元配列にした方がいいかんも。[AlbumsClassifiedByYear, AlbumsClassifiedByPopularity...]
+export interface Props {
+    itemList: ClassifiedItem[]
+}
 
-interface Image {
-    height: number;
-    url: string;
-    width: number;
-};
+interface ClassifiedItem {
+    title: string; // 'Albums', 'Singles', ...
+    description: string;
+    classification: string; // 'year', 'region', 'popularity', ...
+    type: string; // album', 'single', 'compilation', ...
+    itemList: ItemListProps[];
+}
 
 export default function Home(props: Props) {
-    if (props.albumArray.length) {
-        return (
-            <div>
-            <CustomHead/>
-            <main className={styles.main}>
+    return (
+    <div id="home">
+        <CustomHead/>
+        <header className={styles.header}>
+            <span className={styles.headerTitle}>Alversary</span>
+        </header>
+        <main>
+        {props.itemList.length === 0 ? (
+            <p>There are no contents...</p>
+        ) :
+        <div>
+            <div className={styles.main}>
                 <div className={styles.mainInner}>
-                    <h1 className={styles.title}>Alversary</h1>
-                    <p className={styles.subTitle}>
-                        These albums were released on this date!!
-                    </p>
-                    <div className={styles.albumsArea}>
-                        <ul className={styles.yearList}>
-                            {props.albumArray.map((item, index) => {
-                                return (
-                                    <RenderAlbumList
-                                        key={index}
-                                        year={item.releasedYear}
-                                        albums={item.albums}
-                                    />
-                                );
-                            })}
-                        </ul>
-                    </div>
+                    {props.itemList.map((item, index) => {
+                        return (
+                        <div key={index.toString()}>
+                            <p className={styles.subTitle}>
+                                {item.description}
+                            </p>
+                            <div className={styles.albumsArea}>
+                                <ul className={styles.yearList}>
+                                    {item.itemList.map((item, index) => {
+                                        return (
+                                            <ItemList
+                                                key={index}
+                                                heading={item.heading}
+                                                itemList={item.itemList}
+                                            />
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        )
+                    })}
                 </div>
-            </main>
             </div>
-        );
-    }
-    return <main>no albums released...</main>;
+        </div>
+        };
+        </main>
+    </div>
+    );
 };
 
 /**
@@ -69,56 +73,71 @@ export async function getStaticProps() {
     
     const res = await fetch(endpoint, {
         headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
+            "Content-Type": "application/json;charset=utf-8",
             "X-API-Key": apiKey,
-            "Content-Type": "application/json;charset=utf-8"
         }
     });
     const albums: {}[] = await res.json();
 
-    // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
-    let albumArray: {
-        releasedYear: string;
-        albums: AlbumItem[];
-    }[] = [];
+    // const albums: {}[] = [];
+    // const mock = {
+    //     "_id":{"$oid":"5fee6e56418ef8e2dd61ed06"},"images":[{"height":{"$numberInt":"640"},"url":"https://i.scdn.co/image/ab67616d0000b273203c89bd4391468eea4cc3f5","width":{"$numberInt":"640"}},{"height":{"$numberInt":"300"},"url":"https://i.scdn.co/image/ab67616d00001e02203c89bd4391468eea4cc3f5","width":{"$numberInt":"300"}},{"height":{"$numberInt":"64"},"url":"https://i.scdn.co/image/ab67616d00004851203c89bd4391468eea4cc3f5","width":{"$numberInt":"64"}}],"name":"17","artist":"XXXTENTACION","release_date":"2017-08-25","uri":"https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0",
+    // }
+    // albums.push(mock)
 
-    if (albums.length) {
+    // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
+    // let albumsClassifiedByYear: ItemListProps[] = [];
+    let albumsClassifiedByYear: ClassifiedItem = {
+        title : 'year',
+        description: 'no albums released on this date!!',
+        classification: 'year',
+        type: 'album',
+        itemList: [],
+    }
+
+    if (albums.length > 0) {
+        albumsClassifiedByYear.description = 'These albums were released on this date!!'
         // @TODO: anyやめる
         albums.forEach((album: any) => {
             let releasedYear: string = album.release_date.substr(0, 4);
 
-            if (!albumArray.find((val) => val.releasedYear === releasedYear)) {
-                albumArray.push({
-                    releasedYear: releasedYear,
-                    albums: [],
+            if (!albumsClassifiedByYear.itemList.find((val) => val.heading === releasedYear)) {
+                albumsClassifiedByYear.itemList.push({
+                    heading: releasedYear,
+                    itemList: [],
                 });
             };
 
-            const targetObj = albumArray.find(
-                (val) => val.releasedYear === releasedYear
+            const targetObj = albumsClassifiedByYear.itemList.find(
+                (val) => val.heading === releasedYear
             );
-            targetObj?.albums.push(album);
+            targetObj?.itemList.push(album);
         });
     };
+    
+    sortInDescendingOrder(albumsClassifiedByYear.itemList);
 
-    albumArray.sort(
-        (
-            a: { releasedYear: string; albums: any[] },
-            b: { releasedYear: string; albums: any[] }
-        ) => {
-            if (a.releasedYear > b.releasedYear) {
-                return -1;
-            }
-            if (a.releasedYear < b.releasedYear) {
-                return 1;
-            }
-            return 0;
-        }
-    );
+    let staticProps: Props = {
+        itemList: []
+    }
+    staticProps.itemList.push(albumsClassifiedByYear)
 
     return {
-        props: {
-            albumArray,
-        },
+        props: staticProps,
     };
+};
+
+const sortInDescendingOrder = (albums: ItemListProps[]): void => {
+    albums.sort((
+        a, b: ItemListProps,
+    ) => {
+        if (a.heading > b.heading) {
+            return -1;
+        }
+        if (a.heading < b.heading) {
+            return 1;
+        }
+        return 0;
+    })
 };
