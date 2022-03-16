@@ -5,19 +5,19 @@ import { ItemList, ItemListProps } from "../components/ItemList";
 import styles from "../../styles/Index.module.scss";
 
 // 今は年代ごとのやつしか対応してないからもう一つ抽象化した方がいい設計。多次元配列にした方がいいかんも。[AlbumsClassifiedByYear, AlbumsClassifiedByPopularity...]
-interface Props {
+export interface Props {
     itemList: ClassifiedItem[]
 }
 
 interface ClassifiedItem {
-    title: string;
+    title: string; // 'Albums', 'Singles', ...
     description: string;
     classification: string; // 'year', 'region', 'popularity', ...
     type: string; // album', 'single', 'compilation', ...
     itemList: ItemListProps[];
 }
 
-export default function Home(props: Props) {
+export const Home = (props: Props) => {
     return (
     <div id="home">
         <CustomHead/>
@@ -29,10 +29,13 @@ export default function Home(props: Props) {
             <div className={styles.main}>
                 <div className={styles.mainInner}>
                     <h1 className={styles.title}>Alversary</h1>
+                    <p className={styles.subTitle}>
+                        These were released on this date!!
+                    </p>
                     <div>
                     {props.itemList.map((item, index) => {
                         return (
-                        <div>
+                        <div key={index.toString()}>
                             <p className={styles.subTitle}>
                                 {item.description}
                             </p>
@@ -112,11 +115,14 @@ export async function getStaticProps() {
     
     sortInDescendingOrder(albumsClassifiedByYear.itemList);
 
-    let result = [albumsClassifiedByYear]
+    let staticProps: Props = {
+        itemList: []
+    }
+    staticProps.itemList.push(albumsClassifiedByYear)
 
     return {
         props: {
-            result,
+            staticProps,
         },
     };
 };
