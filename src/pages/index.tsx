@@ -1,8 +1,8 @@
 import "./_app";
+import styles from "../../styles/Index.module.scss";
 import { CustomHead } from '../components/CustomHead';
 import { ItemList, ItemListProps } from "../components/ItemList";
 
-import styles from "../../styles/Index.module.scss";
 
 // 今は年代ごとのやつしか対応してないからもう一つ抽象化した方がいい設計。多次元配列にした方がいいかんも。[AlbumsClassifiedByYear, AlbumsClassifiedByPopularity...]
 export interface Props {
