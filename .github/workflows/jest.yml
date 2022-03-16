@@ -1,8 +1,7 @@
 name: jest
 on: pull_request
-  types: 
-    - opened
-    - synchronize
+  types: [opened, synchronize]
+
 jobs:
   test:
     runs-on: ubuntu-latest
