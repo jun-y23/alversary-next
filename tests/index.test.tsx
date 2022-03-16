@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { Home, Props } from '../src/pages/index';
+import Home from '../src/pages/index';
+import { Props } from '../src/pages/index';
 import { ObjectId } from "mongodb";
 
 describe('Rendering', () => {
@@ -51,6 +52,6 @@ describe('Rendering', () => {
 
 	it('It should render', () => {
 		render(<Home {...dummyProps} />)
-		expect(screen.getByText(dummyProps.itemList[0].title)).toBeInTheDocument();
+		expect(screen.getByText(dummyProps.itemList[0].description)).toBeInTheDocument();
 	})
 })

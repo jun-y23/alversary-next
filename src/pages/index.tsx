@@ -17,10 +17,13 @@ interface ClassifiedItem {
     itemList: ItemListProps[];
 }
 
-export const Home = (props: Props) => {
+export default function Home(props: Props) {
     return (
     <div id="home">
         <CustomHead/>
+        <header className={styles.header}>
+            <span className={styles.headerTitle}>Alversary</span>
+        </header>
         <main>
         {props.itemList.length === 0 ? (
             <p>There are no contents...</p>
@@ -28,11 +31,6 @@ export const Home = (props: Props) => {
         <div>
             <div className={styles.main}>
                 <div className={styles.mainInner}>
-                    <h1 className={styles.title}>Alversary</h1>
-                    <p className={styles.subTitle}>
-                        These were released on this date!!
-                    </p>
-                    <div>
                     {props.itemList.map((item, index) => {
                         return (
                         <div key={index.toString()}>
@@ -55,7 +53,6 @@ export const Home = (props: Props) => {
                         </div>
                         )
                     })}
-                    </div>
                 </div>
             </div>
         </div>
@@ -83,6 +80,12 @@ export async function getStaticProps() {
     });
     const albums: {}[] = await res.json();
 
+    // const albums: {}[] = [];
+    // const mock = {
+    //     "_id":{"$oid":"5fee6e56418ef8e2dd61ed06"},"images":[{"height":{"$numberInt":"640"},"url":"https://i.scdn.co/image/ab67616d0000b273203c89bd4391468eea4cc3f5","width":{"$numberInt":"640"}},{"height":{"$numberInt":"300"},"url":"https://i.scdn.co/image/ab67616d00001e02203c89bd4391468eea4cc3f5","width":{"$numberInt":"300"}},{"height":{"$numberInt":"64"},"url":"https://i.scdn.co/image/ab67616d00004851203c89bd4391468eea4cc3f5","width":{"$numberInt":"64"}}],"name":"17","artist":"XXXTENTACION","release_date":"2017-08-25","uri":"https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0",
+    // }
+    // albums.push(mock)
+
     // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
     // let albumsClassifiedByYear: ItemListProps[] = [];
     let albumsClassifiedByYear: ClassifiedItem = {
@@ -93,7 +96,7 @@ export async function getStaticProps() {
         itemList: [],
     }
 
-    if (albums.length) {
+    if (albums.length > 0) {
         albumsClassifiedByYear.description = 'These albums were released on this date!!'
         // @TODO: anyやめる
         albums.forEach((album: any) => {
@@ -121,9 +124,7 @@ export async function getStaticProps() {
     staticProps.itemList.push(albumsClassifiedByYear)
 
     return {
-        props: {
-            staticProps,
-        },
+        props: staticProps,
     };
 };
 
