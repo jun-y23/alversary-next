@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest --env=jsdom --verbose"
   },
   "dependencies": {
     "@types/mongodb": "^3.6.3",
@@ -21,14 +21,29 @@
     "vercel": "^21.0.1"
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.11.3",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.0",
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
+    "babel-jest": "^27.5.1",
     "eslint": "^7.17.0",
     "eslint-plugin-react": "^7.22.0",
     "jest": "^27.5.1",
+    "jest-css-modules": "^2.1.0",
     "mongodb": "^3.6.3",
     "ts-jest": "^27.1.3"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+        "<rootDir>/.next/",
+        "<rootDir>/node_modules/"
+    ],
+    "moduleNameMapper": {
+        "\\.(css|scss)$": "<rootDir>/node_modules/jest-css-modules"
+    }
   }
 }
