@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --env=jsdom --verbose"
+    "test": "jest --env=jsdom --verbose --coverage"
   },
   "dependencies": {
     "@types/mongodb": "^3.6.3",
