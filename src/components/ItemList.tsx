@@ -1,5 +1,5 @@
-import { Item, ItemProps } from './Item';
 import styles from "../../styles/AlbumList.module.scss";
+import { Item, ItemProps } from './Item';
 
 // 他の分類の仕方を考慮するならもう一個上で持ってたほうがいいな。いろんな分類をpropsとして渡す。
 export interface ItemListProps {
