@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import styles from '../../styles/AlbumList.module.scss';
 import Image from 'next/image';
+import styles from '../../styles/AlbumList.module.scss';
 
 export interface ItemProps {
   _id: ObjectId;

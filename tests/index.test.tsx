@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
+import { ObjectId } from 'mongodb';
 import Home from '../src/pages/index';
 import { Props } from '../src/pages/index';
-import { ObjectId } from 'mongodb';
 
 describe('Rendering', () => {
   let dummyProps: Props;
