@@ -22,9 +22,12 @@ export const Item = (album: ItemProps) => {
     <li className={styles.item}>
       <a href={album.uri} target='_blank' rel='noreferrer'>
         <Image
+          alt={album.name}
           src={album.images[1].url}
+          width={album.images[1].width}
+          height={album.images[1].height}
           className={styles.img}
-          alt={album.name}></Image>
+        />
       </a>
       <p className={styles.albumName}>{album.name}</p>
       <p className={styles.albumArtist}>{album.artist}</p>
