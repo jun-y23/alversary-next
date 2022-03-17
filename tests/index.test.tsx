@@ -20,7 +20,7 @@ describe('Rendering', () => {
               heading: '2000',
               itemList: [
                 {
-                  _id: { $oid: '5fee6e56418ef8e2dd61ed06' },
+                  _id: ObjectId('5fee6e56418ef8e2dd61ed06'),
                   images: [
                     {
                       height: 640,
