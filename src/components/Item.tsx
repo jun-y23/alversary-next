@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import styles from '../../styles/AlbumList.module.scss';
+import Image from 'next/image';
 
 export interface ItemProps {
   _id: ObjectId;
@@ -20,10 +21,13 @@ export const Item = (album: ItemProps) => {
   return (
     <li className={styles.item}>
       <a href={album.uri} target='_blank' rel='noreferrer'>
-        <img
+        <Image
+          alt={album.name}
           src={album.images[1].url}
+          width={album.images[1].width}
+          height={album.images[1].height}
           className={styles.img}
-          alt={album.name}></img>
+        />
       </a>
       <p className={styles.albumName}>{album.name}</p>
       <p className={styles.albumArtist}>{album.artist}</p>
