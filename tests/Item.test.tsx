@@ -32,8 +32,13 @@ describe('Render', () => {
     uri: 'https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0',
   };
 
-  it('successfuly gets image data', async () => {
+  it.skip('successfuly gets image data', async () => {
     const response = await axios.get(props.images[0].url);
     expect(response.status).toBe(200);
+  });
+
+  it('navigates to spotify page by clicking anchor tag', () => {
+    render(<Item {...props} />);
+    expect(screen.getByRole('link')).toHaveAttribute('href', props.uri);
   });
 });
