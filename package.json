@@ -12,7 +12,6 @@
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "dependencies": {
-    "@types/axios": "^0.14.0",
     "@types/mongodb": "^3.6.3",
     "axios": "^0.21.1",
     "eslint-config-next": "^12.1.0",
@@ -44,7 +43,10 @@
     "mongodb": "^3.6.3"
   },
   "jest": {
-    "testPathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+    "testPathIgnorePatterns": [
+      "<rootDir>/.next/",
+      "<rootDir>/node_modules/"
+    ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/node_modules/jest-css-modules"
     }
