@@ -32,7 +32,7 @@ describe('Render', () => {
     uri: 'https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0',
   };
 
-  it.skip('successfuly gets image data', async () => {
+  it('successfuly gets image data', async () => {
     const response = await axios.get(props.images[0].url);
     expect(response.status).toBe(200);
   });
