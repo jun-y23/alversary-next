@@ -66,44 +66,44 @@ export default function Home(props: Props) {
  * @return array
  */
 export async function getStaticProps() {
-  // const endpoint: string = process.env.API_ENDPOINT as string;
-  // const apiKey: string = process.env.API_KEY as string;
+  const endpoint: string = process.env.API_ENDPOINT as string;
+  const apiKey: string = process.env.API_KEY as string;
 
-  // const res = await fetch(endpoint, {
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json;charset=utf-8',
-  //     'X-API-Key': apiKey,
-  //   },
-  // });
-  // const albums: {}[] = await res.json();
+  const res = await fetch(endpoint, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      'X-API-Key': apiKey,
+    },
+  });
+  const albums: {}[] = await res.json();
 
-  const albums: {}[] = [];
-  const mock = {
-    _id: { $oid: '5fee6e56418ef8e2dd61ed06' },
-    images: [
-      {
-        height: 640,
-        url: 'https://i.scdn.co/image/ab67616d0000b273203c89bd4391468eea4cc3f5',
-        width: 640,
-      },
-      {
-        height: 300,
-        url: 'https://i.scdn.co/image/ab67616d00001e02203c89bd4391468eea4cc3f5',
-        width: 300,
-      },
-      {
-        height: 64,
-        url: 'https://i.scdn.co/image/ab67616d00004851203c89bd4391468eea4cc3f5',
-        width: 64,
-      },
-    ],
-    name: '17',
-    artist: 'XXXTENTACION',
-    release_date: '2017-08-25',
-    uri: 'https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0',
-  };
-  albums.push(mock);
+  // const albums: {}[] = [];
+  // const mock = {
+  //   _id: { $oid: '5fee6e56418ef8e2dd61ed06' },
+  //   images: [
+  //     {
+  //       height: 640,
+  //       url: 'https://i.scdn.co/image/ab67616d0000b273203c89bd4391468eea4cc3f5',
+  //       width: 640,
+  //     },
+  //     {
+  //       height: 300,
+  //       url: 'https://i.scdn.co/image/ab67616d00001e02203c89bd4391468eea4cc3f5',
+  //       width: 300,
+  //     },
+  //     {
+  //       height: 64,
+  //       url: 'https://i.scdn.co/image/ab67616d00004851203c89bd4391468eea4cc3f5',
+  //       width: 64,
+  //     },
+  //   ],
+  //   name: '17',
+  //   artist: 'XXXTENTACION',
+  //   release_date: '2017-08-25',
+  //   uri: 'https://open.spotify.com/album/5VdyJkLe3yvOs0l4xXbWp0',
+  // };
+  // albums.push(mock);
 
   // リリース年ごとに分割 [{'releasedYear':'2000','albums': []},]
   // let albumsClassifiedByYear: ItemListProps[] = [];
