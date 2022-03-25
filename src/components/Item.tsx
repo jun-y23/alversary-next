@@ -21,13 +21,23 @@ export const Item = (album: ItemProps) => {
   return (
     <li className={styles.item}>
       <a href={album.uri} target='_blank' rel='noreferrer'>
-        <Image
-          alt={album.name}
-          src={album.images[1].url}
-          width={album.images[1].width}
-          height={album.images[1].height}
-          className={styles.img}
-        />
+        <div className={styles.imageContainer}>
+          <div className={styles.overlay}>
+            <p className={styles.overlayMsg}>
+              OPEN
+              <br />
+              SPOTIFY
+            </p>
+          </div>
+          <Image
+            alt={album.name}
+            src={album.images[1].url}
+            layout='intrinsic'
+            className={styles.img}
+            width='200'
+            height='200'
+          />
+        </div>
       </a>
       <p className={styles.albumName}>{album.name}</p>
       <p className={styles.albumArtist}>{album.artist}</p>
