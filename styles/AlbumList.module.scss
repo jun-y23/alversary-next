@@ -1,9 +1,5 @@
 @use './_variables';
 
-.yearListItem {
-  margin-bottom: 15px;
-}
-
 .albumListYear {
   font-size: 1.6rem;
   margin-top: 0;
@@ -25,12 +21,6 @@
 }
 
 .albumArtist {
-  margin: {
-    top: 2px;
-    right: 0;
-    left: 0;
-    bottom: 0;
-  }
   color: variables.$color-gray;
 }
 
@@ -74,23 +64,4 @@
     opacity: 0.8;
     transition: 0.3s;
   }
-}
-.overlay {
-  background-color: black;
-  width: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.overlayMsg {
-  color: aliceblue;
-  text-align: center;
 }

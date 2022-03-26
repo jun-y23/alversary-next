@@ -1,7 +1,45 @@
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
+import styled from 'styled-components';
 import styles from '../../styles/AlbumList.module.scss';
 
+const ArtistName = styled.p`
+  margin: {
+    top: 2px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+`;
+
+const Title = styled.p`
+  margin: {
+    top: 2px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+`;
+
+const Overlay = styled.div`
+  background-color: black;
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const OverlayMsg = styled.p`
+  color: aliceblue;
+  text-align: center;
+`;
 export interface ItemProps {
   _id: ObjectId;
   name: string;
@@ -22,13 +60,13 @@ export const Item = (album: ItemProps) => {
     <li className={styles.item}>
       <a href={album.uri} target='_blank' rel='noreferrer'>
         <div className={styles.imageContainer}>
-          <div className={styles.overlay}>
-            <p className={styles.overlayMsg}>
+          <Overlay>
+            <OverlayMsg>
               OPEN
               <br />
               SPOTIFY
-            </p>
-          </div>
+            </OverlayMsg>
+          </Overlay>
           <Image
             alt={album.name}
             src={album.images[1].url}
@@ -39,8 +77,8 @@ export const Item = (album: ItemProps) => {
           />
         </div>
       </a>
-      <p className={styles.albumName}>{album.name}</p>
-      <p className={styles.albumArtist}>{album.artist}</p>
+      <Title>{album.name}</Title>
+      <ArtistName>{album.artist}</ArtistName>
     </li>
   );
 };
