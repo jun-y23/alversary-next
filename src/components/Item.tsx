@@ -22,12 +22,6 @@ const Title = styled.p`
 
 const ImageContainer = styled.div`
   position: relative;
-  &:hover {
-    .overlay {
-      opacity: 0.8;
-      transition: 0.3s;
-    }
-  }
 `;
 
 const Overlay = styled.div`
@@ -43,6 +37,10 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+  }
 `;
 
 const OverlayMsg = styled.p`
