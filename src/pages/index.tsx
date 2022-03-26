@@ -1,7 +1,42 @@
 import './_app';
-import styles from '../../styles/Index.module.scss';
+import styled from 'styled-components';
 import { CustomHead } from '../components/CustomHead';
 import { ItemList, ItemListProps } from '../components/ItemList';
+
+const Header = styled.header`
+  padding: 20px 0 10px;
+  display: flex;
+  justify-content: center;
+`;
+
+const HeaderTitle = styled.h1`
+  font-size: 3rem;
+  color: #fafafa;
+  margin: 0;
+`;
+
+const MainContainer = styled.main`
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 15px;
+`;
+
+const SubTitle = styled.p`
+  text-align: center;
+  color: #fafafa;
+  margin: 4px 0 0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.4rem;
+  }
+`;
+
+const YearList = styled.ul`
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+`;
 
 // 今は年代ごとのやつしか対応してないからもう一つ抽象化した方がいい設計。多次元配列にした方がいいかんも。[AlbumsClassifiedByYear, AlbumsClassifiedByPopularity...]
 export interface Props {
@@ -20,42 +55,37 @@ export default function Home(props: Props) {
   return (
     <div id='home'>
       <CustomHead />
-      <header className={styles.header}>
-        <span className={styles.headerTitle}>Alversary</span>
-      </header>
-      <main>
+      <Header>
+        <HeaderTitle>Alversary</HeaderTitle>
+      </Header>
+      <MainContainer>
         {props.itemList.length === 0 ? (
           <p>There are no contents...</p>
         ) : (
           <div>
-            <div className={styles.main}>
-              <div className={styles.mainInner}>
-                {props.itemList.map((item, index) => {
-                  return (
-                    <div key={index.toString()}>
-                      <p className={styles.subTitle}>{item.description}</p>
-                      <div className={styles.albumsArea}>
-                        <ul className={styles.yearList}>
-                          {item.itemList.map((item, index) => {
-                            return (
-                              <ItemList
-                                key={index}
-                                heading={item.heading}
-                                itemList={item.itemList}
-                              />
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            {props.itemList.map((item, index) => {
+              return (
+                <div key={index.toString()}>
+                  <div>
+                    <SubTitle>{item.description}</SubTitle>
+                    <YearList>
+                      {item.itemList.map((item, index) => {
+                        return (
+                          <ItemList
+                            key={index}
+                            heading={item.heading}
+                            itemList={item.itemList}
+                          />
+                        );
+                      })}
+                    </YearList>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
-        ;
-      </main>
+      </MainContainer>
     </div>
   );
 }
