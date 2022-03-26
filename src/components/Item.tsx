@@ -1,7 +1,54 @@
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
-import styles from '../../styles/AlbumList.module.scss';
+import styled from 'styled-components';
 
+const ItemListStyle = styled.li`
+  @media screen and (max-width: 480px) {
+    height: 100%;
+    flex: 0 0 40%;
+    margin: 0px 5px;
+    scroll-snap-align: center;
+  }
+`;
+const ArtistName = styled.p`
+  margin: 2px 0 0;
+  color: #ffcccc;
+`;
+
+const Title = styled.p`
+  margin: 2px 0 0;
+  color: #fafafa;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  &:hover {
+    .overlay {
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+  }
+`;
+
+const Overlay = styled.div`
+  background-color: black;
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const OverlayMsg = styled.p`
+  color: aliceblue;
+  text-align: center;
+`;
 export interface ItemProps {
   _id: ObjectId;
   name: string;
@@ -19,28 +66,27 @@ export interface Image {
 
 export const Item = (album: ItemProps) => {
   return (
-    <li className={styles.item}>
+    <ItemListStyle>
       <a href={album.uri} target='_blank' rel='noreferrer'>
-        <div className={styles.imageContainer}>
-          <div className={styles.overlay}>
-            <p className={styles.overlayMsg}>
+        <ImageContainer>
+          <Overlay>
+            <OverlayMsg>
               OPEN
               <br />
               SPOTIFY
-            </p>
-          </div>
+            </OverlayMsg>
+          </Overlay>
           <Image
             alt={album.name}
             src={album.images[1].url}
             layout='intrinsic'
-            className={styles.img}
             width='200'
             height='200'
           />
-        </div>
+        </ImageContainer>
       </a>
-      <p className={styles.albumName}>{album.name}</p>
-      <p className={styles.albumArtist}>{album.artist}</p>
-    </li>
+      <Title>{album.name}</Title>
+      <ArtistName>{album.artist}</ArtistName>
+    </ItemListStyle>
   );
 };
