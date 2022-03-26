@@ -47,7 +47,7 @@ const ItemListStyle = styled.ul`
 export const ItemList = (props: ItemListProps) => {
   return (
     <ListItem>
-      {/* <ItemHeading>{props.heading}</ItemHeading> */}
+      <ItemHeading>{props.heading}</ItemHeading>
       <ItemListStyle>
         {props.itemList.map((item) => (
           <Item
