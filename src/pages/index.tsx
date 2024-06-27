@@ -1,8 +1,8 @@
 import "./_app";
+import { Analytics } from "@vercel/analytics/react";
 import styled from "styled-components";
 import { CustomHead } from "../components/CustomHead";
 import { ItemList, ItemListProps } from "../components/ItemList";
-import { Analytics } from "@vercel/analytics/react";
 
 const Header = styled.header`
   padding: 20px 0 10px;
