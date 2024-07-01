@@ -26,7 +26,7 @@ export const CustomHead = () => {
 
       <meta
         property='og:image'
-        content='https://alversary.s3-ap-northeast-1.amazonaws.com/ogp-alversary.png'
+        content='https://alversary.vercel.app/images/ogp-alversary.png'
       />
       <meta name='twitter:card' content='summary' />
     </Head>
