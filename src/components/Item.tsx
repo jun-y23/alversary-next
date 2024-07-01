@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb';
-import Image from 'next/image';
-import styled from 'styled-components';
+import { ObjectId } from "mongodb";
+import Image from "next/image";
+import styled from "styled-components";
 
 const ItemListStyle = styled.li`
   @media screen and (max-width: 480px) {
@@ -48,43 +48,44 @@ const OverlayMsg = styled.p`
   text-align: center;
 `;
 export interface ItemProps {
-  _id: ObjectId;
-  name: string;
-  artist: string;
-  release_date: string;
-  uri: string;
-  images: [Image, Image, Image];
+	_id: ObjectId;
+	name: string;
+	artist: string;
+	release_date: string;
+	uri: string;
+	images: [Image, Image, Image];
 }
 
 export interface Image {
-  height: number;
-  url: string;
-  width: number;
+	height: number;
+	url: string;
+	width: number;
 }
 
 export const Item = (album: ItemProps) => {
-  return (
-    <ItemListStyle>
-      <a href={album.uri} target='_blank' rel='noreferrer'>
-        <ImageContainer>
-          <Overlay>
-            <OverlayMsg>
-              OPEN
-              <br />
-              SPOTIFY
-            </OverlayMsg>
-          </Overlay>
-          <Image
-            alt={album.name}
-            src={album.images[1].url}
-            layout='intrinsic'
-            width='200'
-            height='200'
-          />
-        </ImageContainer>
-      </a>
-      <Title>{album.name}</Title>
-      <ArtistName>{album.artist}</ArtistName>
-    </ItemListStyle>
-  );
+	return (
+		<ItemListStyle>
+			<a href={album.uri} target="_blank" rel="noreferrer">
+				<ImageContainer>
+					<Overlay>
+						<OverlayMsg>
+							OPEN
+							<br />
+							SPOTIFY
+						</OverlayMsg>
+					</Overlay>
+					<Image
+						alt={album.name}
+						src={album.images[1].url}
+						layout="intrinsic"
+						width="200"
+						height="200"
+						unoptimized
+					/>
+				</ImageContainer>
+			</a>
+			<Title>{album.name}</Title>
+			<ArtistName>{album.artist}</ArtistName>
+		</ItemListStyle>
+	);
 };
